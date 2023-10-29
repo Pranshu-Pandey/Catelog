@@ -1,97 +1,81 @@
-// To parse this JSON data, do
-//
-//     final catalog = catalogFromJson(jsonString);
-
-import 'dart:convert';
-
-Catalog catalogFromJson(String str) => Catalog.fromJson(json.decode(str));
-
-String catalogToJson(Catalog data) => json.encode(data.toJson());
-
-class Catalog {
-  List<Items> items;
-
-  Catalog({
-    required this.items,
-  });
-
-  factory Catalog.fromJson(Map<String, dynamic> json) => Catalog(
-        items: List<Items>.from(json["items"].map((x) => Items.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "items": List<dynamic>.from(items.map((x) => x.toJson())),
-      };
-}
-
 class Items {
-  int id;
-  String title;
-  double price;
-  String description;
-  String category;
-  String image;
-  Rating rating;
+  final num id;
+  final String title;
+  final num price;
+  final String description;
+  final String catagory;
+  final dynamic rating;
+  final String image;
 
   Items({
     required this.id,
     required this.title,
     required this.price,
     required this.description,
-    required this.category,
-    required this.image,
+    required this.catagory,
     required this.rating,
+    required this.image,
   });
 
-  factory Items.fromJson(Map<String, dynamic> json) => Items(
-        id: json["id"],
-        title: json["title"],
-        price: json["price"]?.toDouble(),
-        description: json["description"],
-        category: json["category"],
-        image: json["image"],
-        rating: Rating.fromJson(json["rating"]),
-      );
+  // factory Items.fromMap(Map<String, dynamic> map) {
+  //   return Items(
+  //     id: map["id"],
+  //     title: map["title"],
+  //     price: map["price"],
+  //     description: map["description"],
+  //     catagory: map["catagory"],
+  //     rating: map["rating"],
+  //     image: map["image"],
+  //   );
+  // }
 
-  Map<String, dynamic> toJson() => {
+  factory Items.fromMap(Map<String, dynamic> map) {
+    final ratingMap = map['rating'] as Map<String, dynamic>;
+    final double rate = ratingMap['rate'] as double;
+
+    return Items(
+      id: map['id'] as int,
+      title: map['title'] as String,
+      price: map['price'] as double,
+      description: map['description'] as String,
+      catagory: map['category'] as String,
+      image: map['image'] as String,
+      rating: rate,
+    );
+  }
+
+  toMap() => {
         "id": id,
         "title": title,
         "price": price,
         "description": description,
-        "category": category,
+        "rating": rating,
         "image": image,
-        "rating": rating.toJson(),
+        "catagory": catagory,
       };
 }
 
-class Rating {
-  double rate;
-  int count;
-
-  Rating({
-    required this.rate,
-    required this.count,
-  });
-
-  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-        rate: json["rate"]?.toDouble(),
-        count: json["count"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "rate": rate,
-        "count": count,
-      };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
+class Catelog {
+  static List<dynamic> products = [];
+  // [
+  //   Items(
+  //       catagory: "men's clothing",
+  //       description:
+  //           "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+  //       id: 1.0,
+  //       price: 109.95,
+  //       rating: 3.9,
+  //       title: "Fjallraven - Foldsack No. 1 Backpack",
+  //       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
+  //   Items(
+  //     catagory: "men's clothing",
+  //     description:
+  //         "A versatile backpack for all your adventures. This pack includes a padded laptop sleeve for laptops up to 15 inches, making it ideal for work or outdoor trips.",
+  //     price: 129.99,
+  //     rating: 4.2,
+  //     image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+  //     id: 2,
+  //     title: 'Good iyems',
+  //   ),
+  // ];
 }
