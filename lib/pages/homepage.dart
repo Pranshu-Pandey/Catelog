@@ -15,9 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // List<String> titles = [];
-  // List<String> images = [];
-  // List<num> prices = [];
   @override
   void initState() {
     super.initState();
@@ -28,149 +25,15 @@ class _HomePageState extends State<HomePage> {
     var json = await rootBundle.loadString("assets/files/catelog.json");
     var decodedjson = jsonDecode(json);
     final productsdata = decodedjson["products"];
-    // print(productsdata);
-//     for (dynamic i in productsdata) {
-//       // Catelog.products = i;
-//       String title = i["title"];
-//       titles.add(title);
-//       String image = i["image"];
-//       images.add(image);
-//       num price = i["price"];
-//       prices.add(price);
-//       // Create an 'Items' object from the JSON data
-//       Items item = Items.fromMap(i);
-//       print(item.catagory);
-
-// // Add the 'Items' object to your list of products
-//       Catelog.products.add(item);
-//       // print(i);
-//     }
-    // print(Catelog.products);
     Catelog.products = productsdata.map((item) => Items.fromMap(item)).toList();
-    // print(Catelog.products);
-    //[Items(id: ,image,title),Items(id,image,title),Items(id,image,title),Items(id,image,title)]
-    // Catelog.products = [
-    //   Items(
-    //     id: 2,
-    //     catagory: "",
-    //     description: "",
-    //     price: 0,
-    //     rating: {
-    //       "rating": {"rate": 3.9, "count": 120}
-    //     },
-    //     // image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-    //     image: "",
-    //     title: 'Velocity',
-    //   ),
-    // ];
-    //     List.from(productsdata).map<Items>((e) => Items.fromMap(e)).toList();
     setState(() {});
   }
-
-  // loadData() async {
-  //   try {
-  //     var json = await rootBundle.loadString("assets/files/catelog.json");
-  //     var decodedjson = jsonDecode(json);
-  //     final productsdata = decodedjson["products"];
-  //     Catelog.products =
-  //         productsdata.map((item) => Items.fromMap(item)).toList();
-
-  //     // Add your hardcoded items to the list
-  //     Catelog.products.addAll([
-  //       Items(
-  //         catagory: "men's clothing",
-  //         description:
-  //             "A versatile backpack for all your adventures. This pack includes a padded laptop sleeve for laptops up to 15 inches, making it ideal for work or outdoor trips.",
-  //         price: 129.99,
-  //         rating: 4.2,
-  //         image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-  //         id: 2,
-  //         title: 'Good items',
-  //       ),
-  //     ]);
-
-  //     setState(() {});
-  //   } catch (error) {
-  //     // Handle any errors that may occur while loading or parsing the JSON data.
-  //     print("Error loading JSON data: $error");
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Mytheme.creamColor,
-      // appBar: AppBar(
-      //   title: Text("Catalog App"),
-      //   centerTitle: true,
-      //   // backgroundColor: Colors.lightBlue,
-      // ),
       drawer: MyDrawer(),
-      // body: Padding(
-      //   padding: const EdgeInsets.all(16.0),
-      //   child: ListView.builder(
-      //     itemCount: Catelog.products.length,
-      //     itemBuilder: (context, index) {
-      //       return ItemWidgets(
-      //         product: Catelog.products[index],
-      //       );
-      //     },
-      //   ),
-      // ),
-      // body: ListView.builder(
-      //   itemCount: Catelog.products.length,
-      //   itemBuilder: (context, index) {
-      //     return Card(
-      //       child: (Catelog.products != null && Catelog.products.isNotEmpty)
-      //           ? ListTile(
-      //               leading: CircleAvatar(
-      //                 backgroundImage:
-      //                     NetworkImage(Catelog.products[index].image),
-      //               ),
-      //               title: Text(
-      //                 Catelog.products[index].title,
-      //                 maxLines: 1,
-      //               ),
-      //               subtitle: Text(
-      //                 '${Catelog.products[index].description}',
-      //                 maxLines: 1,
-      //               ),
-      //               trailing: Text(
-      //                 '\$${Catelog.products[index].price}',
-      //                 style: TextStyle(fontWeight: FontWeight.bold),
-      //               ),
-      //             )
-      //           : Center(
-      //               child: CircularProgressIndicator(),
-      //             ),
-      //     );
-      //   },
-      // ),
-      //   body: GridView.builder(
-      //       itemCount: Catelog.products.length,
-      //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //           crossAxisCount: 2, mainAxisSpacing: 16, crossAxisSpacing: 10),
-      //       itemBuilder: (context, index) {
-      //         final cat = Catelog.products[index];
-      //         return Card(
-      //           clipBehavior: Clip.antiAlias,
-      //           shape: RoundedRectangleBorder(
-      //               borderRadius: BorderRadius.circular(10)),
-      //           child: GridTile(
-      //             header: Container(
-      //                 padding: EdgeInsets.all(12),
-      //                 decoration: BoxDecoration(
-      //                   color: Colors.lightBlue,
-      //                 ),
-      //                 child: Text(
-      //                   '${cat.title}',
-      //                   style: TextStyle(color: Colors.white),
-      //                 )),
-      //             child: Image.network('${cat.image}'),
-      //             footer: Text('${cat.price}'),
-      //           ),
-      //         );
-      //       }),
       body: SafeArea(
         child: Container(
           padding: Vx.m32,
