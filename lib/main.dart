@@ -1,3 +1,4 @@
+import 'package:catalog/pages/cart_page.dart';
 import 'package:catalog/pages/homepage.dart';
 import 'package:catalog/pages/loginpage.dart';
 import 'package:catalog/utils/routes.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => const HomePage(),
         Myroutes.loginRoute: (context) => const LoginPage(),
         Myroutes.homeRoute: (context) => HomePage(),
+        Myroutes.cartRoute: (context) => CartPage(),
       },
     );
   }

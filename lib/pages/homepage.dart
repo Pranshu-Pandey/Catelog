@@ -1,8 +1,12 @@
 import 'dart:convert';
 
 import 'package:catalog/models/catalog.dart';
+import 'package:catalog/pages/addtocart.dart';
+import 'package:catalog/pages/homedetails.dart';
+import 'package:catalog/utils/routes.dart';
 import 'package:catalog/widgets/drawer.dart';
 import 'package:catalog/widgets/theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -32,6 +36,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, Myroutes.cartRoute),
+        child: Icon(CupertinoIcons.cart),
+        backgroundColor: Mytheme.creamColor,
+      ),
       backgroundColor: Mytheme.creamColor,
       drawer: MyDrawer(),
       body: SafeArea(
@@ -80,8 +89,18 @@ class CatalogList extends StatelessWidget {
       itemCount: Catelog.products.length,
       itemBuilder: (context, index) {
         final catalog = Catelog.products[index];
-        return CatalogItem(
-          catalog: catalog,
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeDetailPage(catalog: catalog),
+              ),
+            );
+          },
+          child: CatalogItem(
+            catalog: catalog,
+          ),
         );
       },
     );
@@ -97,14 +116,18 @@ class CatalogItem extends StatelessWidget {
     return VxBox(
         child: Row(
       children: [
-        CatalogImage(catalog: catalog)
-            .box
-            .rounded
-            .p8
-            .color(Mytheme.creamColor)
-            .make()
-            .p16()
-            .w40(context),
+        Hero(
+          // key: Key(catalog!.id.toString()),
+          tag: Key(catalog!.id.toString()),
+          child: CatalogImage(catalog: catalog)
+              .box
+              .rounded
+              .p8
+              .color(Mytheme.creamColor)
+              .make()
+              .p16()
+              .w40(context),
+        ),
         Expanded(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -137,16 +160,7 @@ class CatalogItem extends StatelessWidget {
               // buttonPadding: Vx.mOnly(right: 16),
               children: [
                 "\$${catalog!.price}".text.bold.make(),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Buy",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Mytheme.darkbuishColor)),
-                )
+                AddToCart(catalog: catalog)
               ],
             )
           ],

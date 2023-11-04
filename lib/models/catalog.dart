@@ -56,26 +56,18 @@ class Items {
 }
 
 class Catelog {
+  static final catModel = Catelog._internal();
+
+  Catelog._internal();
+
+  factory Catelog() => catModel;
+
   static List<dynamic> products = [];
-  // [
-  //   Items(
-  //       catagory: "men's clothing",
-  //       description:
-  //           "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-  //       id: 1.0,
-  //       price: 109.95,
-  //       rating: 3.9,
-  //       title: "Fjallraven - Foldsack No. 1 Backpack",
-  //       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
-  //   Items(
-  //     catagory: "men's clothing",
-  //     description:
-  //         "A versatile backpack for all your adventures. This pack includes a padded laptop sleeve for laptops up to 15 inches, making it ideal for work or outdoor trips.",
-  //     price: 129.99,
-  //     rating: 4.2,
-  //     image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-  //     id: 2,
-  //     title: 'Good iyems',
-  //   ),
-  // ];
+
+  // item get by id
+  Items getById(num id) =>
+      products.firstWhere((element) => element.id == id, orElse: null);
+
+  // item by position
+  Items getByPosition(num pos) => products[pos.toInt()];
 }
